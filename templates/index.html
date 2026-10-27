@@ -4,16 +4,235 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BrightMinds Uzbekistan</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://onrender.com">
     <meta property="og:title" content="💡 BrightMinds Uzbekistan — Бесплатные возможности">
     <meta property="og:description" content="Масштабная платформа для амбициозных подростков Узбекистана. Поиск бесплатных курсов и волонтерства.">
     <meta property="og:image" content="https://onrender.com/static/preview.jpg">
+
+    <!-- Встроенные масштабные стили (Защита от кэша) -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Красивая фиксированная панель навигации */
+        .main-nav {
+            background-color: #0f172a;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .nav-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            color: white;
+            font-size: 1.6rem;
+            font-weight: 800;
+        }
+
+        .nav-logo span { color: #38bdf8; }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover { color: white; }
+
+        .lang-switcher select {
+            background-color: #1e293b;
+            color: white;
+            border: 1px solid #475569;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* Огромный баннер Hero в стиле Zooniverse */
+        .hero-large {
+            background: linear-gradient(135deg, #1e3a8a, #0f172a);
+            color: white;
+            padding: 120px 0 160px 0;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3.6rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        .hero-large .subtitle {
+            font-size: 1.4rem;
+            color: #93c5fd;
+            max-width: 850px;
+            margin: 0 auto 45px auto;
+            line-height: 1.6;
+        }
+
+        .btn-hero-action {
+            display: inline-block;
+            padding: 18px 40px;
+            background-color: #38bdf8;
+            color: #0f172a;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.15rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 14px rgba(56, 189, 248, 0.3);
+            transition: 0.2s;
+        }
+
+        .btn-hero-action:hover {
+            transform: translateY(-2px);
+            background-color: #7dd3fc;
+        }
+
+        /* Блок подбора программ */
+        .onboarding-section {
+            margin-top: -60px;
+            margin-bottom: 60px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .onboarding-box {
+            background-color: white;
+            border-radius: 16px;
+            padding: 45px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            border: 1px solid #e2e8f0;
+        }
+
+        .step-title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: #0f172a;
+        }
+
+        .step-desc { color: #64748b; margin-bottom: 25px; font-size: 1.05rem; }
+
+        .interest-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .tag-btn {
+            padding: 14px 24px;
+            background-color: #f1f5f9;
+            border: 2px solid #e2e8f0;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            color: #475569;
+            transition: all 0.2s ease;
+        }
+
+        .tag-btn:hover { background-color: #e2e8f0; color: #0f172a; }
+        .tag-btn.active { background-color: #e0f2fe; border-color: #0ea5e9; color: #0369a1; }
+
+        .search-action-box { display: flex; gap: 15px; }
+        .search-action-box input { width: 240px; padding: 14px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 1rem; }
+
+        .btn-primary-search {
+            flex: 1; padding: 14px 30px; background: linear-gradient(135deg, #0ea5e9, #2563eb);
+            color: white; border: none; border-radius: 10px; font-size: 1.15rem; font-weight: 700; cursor: pointer;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15); transition: all 0.2s;
+        }
+        .btn-primary-search:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(37, 99, 235, 0.25); }
+
+        /* Раздел "Почему это работает" */
+        .about-section { background-color: #ffffff; padding: 80px 0; border-bottom: 1px solid #e2e8f0; }
+        .section-title { font-size: 2.4rem; font-weight: 700; color: #0f172a; margin-bottom: 15px; }
+        .section-subtitle { color: #64748b; max-width: 750px; margin: 0 auto 50px auto; font-size: 1.15rem; line-height: 1.6; }
+        
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .stat-card { background-color: #f8fafc; border-radius: 14px; padding: 35px; text-align: center; border: 1px solid #e2e8f0; display: flex; flex-direction: column; justify-content: space-between; align-items: center; }
+        .stat-num { font-size: 2.8rem; font-weight: 800; color: #2563eb; margin-bottom: 12px; }
+        .stat-text { font-size: 1rem; color: #475569; line-height: 1.6; margin-bottom: 20px; }
+        .btn-verify { display: inline-block; padding: 10px 20px; background-color: #e2e8f0; color: #1e293b; text-decoration: none; font-size: 0.9rem; font-weight: 600; border-radius: 6px; transition: 0.2s; }
+        .btn-verify:hover { background-color: #cbd5e1; color: #0f172a; }
+
+        /* Крупные категории */
+        .explore-categories { padding: 90px 0; background-color: #ffffff; border-bottom: 1px solid #e2e8f0; }
+        .cat-large-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
+        .cat-large-card { background-color: #f1f5f9; padding: 45px 35px; border-radius: 12px; border-left: 6px solid #2563eb; }
+        .cat-large-card h3 { font-size: 1.5rem; margin-bottom: 12px; color: #0f172a; }
+        .cat-large-card p { color: #475569; line-height: 1.6; font-size: 1rem; }
+
+        /* Сетка карточек результатов */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 30px; margin-top: 30px; margin-bottom: 60px; }
+        .card { background-color: white; border-radius: 14px; padding: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); border: 1px solid #e2e8f0; border-top: 6px solid #cbd5e1; display: flex; flex-direction: column; transition: 0.2s; }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 10px 20px rgba(0,0,0,0.06); }
+        
+        .card-it { border-top-color: #38bdf8; }
+        .card-volunteering { border-top-color: #f97316; }
+        .card-marketing { border-top-color: #10b981; }
+
+        .badge { padding: 6px 14px; font-size: 0.85rem; font-weight: 700; border-radius: 20px; margin-bottom: 20px; display: inline-block; align-self: flex-start; }
+        .card-it .badge { background-color: #e0f2fe; color: #0369a1; }
+        .card-volunteering .badge { background-color: #ffedd5; color: #c2410c; }
+        .card-marketing .badge { background-color: #d1fae5; color: #065f46; }
+
+        .card h3 { font-size: 1.4rem; color: #0f172a; margin-bottom: 10px; }
+        .org { font-size: 0.95rem; color: #64748b; margin-bottom: 15px; font-weight: 600; }
+        .desc { font-size: 1rem; color: #334155; line-height: 1.6; margin-bottom: 25px; }
+        .card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
+        .age { font-size: 0.9rem; color: #64748b; font-weight: 600; }
+        .btn-link { color: #2563eb; text-decoration: none; font-weight: 700; font-size: 0.95rem; }
+        .btn-link:hover { text-decoration: underline; }
+
+        footer { background-color: #0f172a; color: #64748b; text-align: center; padding: 50px 0; }
+    </style>
 </head>
 <body>
 
-    <!-- Взрослое навигационное меню (как на Zooniverse) -->
+    <!-- Взрослое навигационное меню -->
     <nav class="main-nav">
         <div class="container nav-box">
             <div class="nav-logo">💡 BrightMinds <span>Uz</span></div>
@@ -33,141 +252,103 @@
     </nav>
 
     <!-- Огромный приветственный баннер (Hero Banner) -->
-    <header class="hero-large">
-        <div class="container hero-content">
-            <h1 id="hero-main-title">Создавай своё будущее в ИТ и науке со стоимостью $0</h1>
-            <p class="subtitle" id="hero-subtitle">Крупнейший навигатор по бесплатным международным курсам, хакатонам и волонтерским проектам для амбициозных подростков из Узбекистана.</p>
-            <a href="#quiz-title" class="btn-hero-action" id="btn-hero-go">Найти программы →</a>
-        </div>
-    </header>
+Создавай своё будущее в ИТ и науке со стоимостью $0
+Крупнейший навигатор по бесплатным международным курсам, хакатонам и волонтерским проектам для амбициозных подростков из Узбекистана.
+Найти программы →
 
-    <!-- Блок большой статистики (Масштаб Zooniverse) -->
-    <section class="about-section" id="about-title">
-        <div class="container">
-            <h2 class="section-title text-center" id="about-title-text">Почему это работает?</h2>
-            <p class="section-subtitle text-center" id="about-subtitle">Мы проверили эту систему на собственном опыте и вывели доказательства в открытый доступ.</p>
-            
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-num">Harvard</div>
-                    <p class="stat-text" id="stat-harvard">Мустафо окончил сложнейший курс <strong>CS50x: Introduction to Computer Science</strong></p>
-                    <a href="https://harvard.edu" target="_blank" class="btn-verify" id="btn-ver-harvard">Проверить в Harvard ↗</a>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-num">100+ ч.</div>
-                    <p class="stat-text" id="stat-zooniverse">Официальный вклад в международную научную платформу гражданской науки <strong>Zooniverse</strong></p>
-                    <a href="https://zooniverse.org" target="_blank" class="btn-verify" id="btn-ver-zooniverse">Посмотреть сертификат ↗</a>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-num">HubSpot</div>
-                    <p class="stat-text" id="stat-hubspot">Официальная бизнес-сертификация международного уровня по <strong>Digital Marketing</strong></p>
-                    <a href="https://hubspot.com" target="_blank" class="btn-verify" id="btn-ver-hubspot">Проверить в HubSpot ↗</a>
-                </div>
-            </div>
-        </div>
-    </section>
+Почему это работает?
+Мы проверили эту систему на собственном опыте и вывели доказательства в открытый доступ.
+Harvard
+Мустафо окончил сложнейший курс CS50x: Introduction to Computer Science
+Проверить в Harvard ↗
 
-    <!-- Интерактивный блок подбора программ -->
-    <section class="onboarding-section" id="quiz-title">
-        <div class="container">
-            <div class="onboarding-box">
-                <h3 class="step-title" id="quiz-title-text">Давай найдем программу под тебя 🚀</h3>
-                <p class="step-desc" id="quiz-desc">Чем ты хочешь заниматься больше всего?</p>
-                
-                <div class="interest-tags">
-                    <button class="tag-btn" data-interest="it" id="tag-it">💻 Писать код (IT)</button>
-                    <button class="tag-btn" data-interest="volunteering" id="tag-vol">🌍 Волонтерство (Наука/Экология)</button>
-                    <button class="tag-btn" data-interest="marketing" id="tag-mark">📈 Продвигать проекты (Бизнес)</button>
-                </div>
 
-                <div class="search-action-box">
-                    <input type="number" id="user-age" placeholder="Возраст (например, 14)" min="10" max="20">
-                    <button class="btn-primary-search" id="btn-search-action" onclick="runSearch()">Показать мои варианты →</button>
-                </div>
-            </div>
-        </div>
-    </section>
+100+ ч.
+Официальный вклад в международную научную платформу гражданской науки Zooniverse
+Посмотреть сертификат ↗
 
-    <!-- Динамический блок вывода результатов из SQL -->
-    <main class="container hidden" id="results-container">
-        <h2 class="section-title" id="results-title">Подобрано специально для тебя ($0):</h2>
-        <div class="grid" id="opportunities-grid"></div>
-    </main>
 
-    <!-- Новый огромный блок категорий (Масштабность сайта) -->
-    <section class="explore-categories" id="explore-title">
-        <div class="container">
-            <h2 class="section-title text-center" id="exp-title">Доступные направления для развития</h2>
-            <div class="cat-large-grid">
-                <div class="cat-large-card">
-                    <h3>Development & AI</h3>
-                    <p>Изучение веб-разработки, алгоритмов, Python и искусственного интеллекта на курсах Лиги Плюща.</p>
-                </div>
-                <div class="cat-large-card">
-                    <h3>Citizen Science</h3>
-                    <p>Участие в настоящих исследованиях космоса, океана и природы вместе с учеными со всего мира.</p>
-                </div>
-                <div class="cat-large-card">
-                    <h3>Global Scholarships</h3>
-                    <p>Пошаговые инструкции, как находить гранты и учиться за границей абсолютно бесплатно.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+HubSpot
+Официальная бизнес-сертификация международного уровня по Digital Marketing
+Проверить в HubSpot ↗
 
-    <footer>
-        <div class="container">
-            <p>© 2026 BrightMinds Uzbekistan. Разработано Мустафо. Проект запущен в сеть 24/7.</p>
-        </div>
-    </footer>
 
-    <script>
-        const translations = {
-            ru: {
-                mainTitle: "Создавай своё будущее в ИТ и науке со стоимостью $0",
-                subtitle: "Крупнейший навигатор по бесплатным международным курсам, хакатонам и волонтерским проектам для амбициозных подростков из Узбекистана.",
-                quizTitle: "Давай найдем программу под тебя 🚀",
-                quizDesc: "Чем ты хочешь заниматься больше всего?",
-                tagIt: "💻 Писать код (IT)",
-                tagVol: "🌍 Волонтерство (Наука/Экология)",
-                tagMark: "📈 Продвигать проекты (Бизнес)",
-                searchBtn: "Показать мои варианты →",
-                aboutTitle: "Почему это работает?",
-                aboutSubtitle: "Мы проверили эту систему на собственном опыте и вывели доказательства в открытый доступ.",
-                statHarvard: "Мустафо окончил сложнейший курс <strong>CS50x: Introduction to Computer Science</strong>",
-                btnVerHarvard: "Проверить в Harvard ↗",
-                statZooniverse: "Официальный вклад в международную научную платформу гражданской науки <strong>Zooniverse</strong>",
-                statHubspot: "Официальная бизнес-сертификация международного уровня по <strong>Digital Marketing</strong>",
-                resultsTitle: "Подобрано специально для тебя ($0):",
-                ageInput: "Возраст (например, 14)",
-                btnOpen: "Открыть курс →",
-                btnVol: "Волонтерить →"
-            },
-            uz: {
-                mainTitle: "Kelajagingizni IT va fanda $0 evaziga yarating",
-                subtitle: "Ambitsiyali o'smirlar uchun bepul xalqaro kurslar, xakatolar va ko'ngillilik loyihalari bo'yicha eng yirik navigator.",
-                quizTitle: "Sizga mos dasturni topamiz 🚀",
-                quizDesc: "Sizni ko'proq nima qiziqtiradi?",
-                tagIt: "💻 Kod yozish (IT)",
-                tagVol: "🌍 Ko'ngillilik (Fan/Ekologiya)",
-                tagMark: "📈 Loyihalarni rivojlantirish (Biznes)",
-                searchBtn: "Variantlarni ko'rsatish →",
-                aboutTitle: "Nega bu ishlaydi?",
-                aboutSubtitle: "Biz ushbu tizimni o'z tajribamizda sinovdan o'tkazdik va rasmiy natijalar bilan bo'lishamiz.",
-                statHarvard: "Mustafo <strong>CS50x: Introduction to Computer Science</strong> kursini muvaffакiyatli tugatdi",
-                btnVerHarvard: "Harvardda tekshirish ↗",
-                statZooniverse: "<strong>Zooniverse</strong> fuqarolik fanining xalqaro ilmiy platformasiga rasmiy ko'ngillilik hissasi",
-                statHubspot: "<strong>Digital Marketing Certified</strong> bo'yicha xalqaro biznes sertifikati",
-                resultsTitle: "Maxsus siz uchun tanlangan ($0):",
-                ageInput: "Yoshingiz (masalan, 14)",
-                btnOpen: "Kursni ochish →",
-                btnVol: "Ko'ngilli bo'lish →"
-            },
-            en: {
-                mainTitle: "Build Your Future in IT and Science with a $0 Budget",
-                subtitle: "The largest navigator for free international courses, hackathons, and volunteer projects for ambitious teenagers from Uzbekistan.",
-                quizTitle: "Let's find the perfect program for you 🚀",
-                quizDesc: "What are you most interested in?",
+
+Давай найдем программу под тебя 🚀
+Чем ты хочешь заниматься больше всего?
+💻 Писать код (IT)
+🌍 Волонтерство (Наука/Экология)
+📈 Продвигать проекты (Бизнес)
+Показать мои варианты →
+
+
+
+Подобрано специально для тебя ($0):
+
+Доступные направления для развития
+
+
+Development & AI
+Изучение веб-разработки, алгоритмов, Python и искусственного интеллекта на курсах Лиги Плюща.
+
+
+Citizen Science
+Участие в настоящих исследованиях космоса, океана и природы вместе с учеными со всего мира.
+
+
+Global Scholarships
+Пошаговые инструкции, как находить гранты и учиться за границей абсолютно бесплатно.
+
+
+
+© 2026 BrightMinds Uzbekistan. Разработано Мустафо. Проект запущен в сеть 24/7.
+
+const translations = {
+ru: {
+mainTitle: "Создавай своё будущее в ИТ и науке со стоимостью $0",
+subtitle: "Крупнейший навигатор по бесплатным международным курсам, хакатонам и волонтерским проектам для амбициозных подростков из Узбекистана.",
+quizTitle: "Давай найдем программу под тебя 🚀",
+quizDesc: "Чем ты хочешь заниматься больше всего?",
+tagIt: "💻 Писать код (IT)",
+tagVol: "🌍 Волонтерство (Наука/Экология)",
+tagMark: "📈 Продвигать проекты (Бизнес)",
+searchBtn: "Показать мои варианты →",
+aboutTitle: "Почему это работает?",
+aboutSubtitle: "Мы проверили эту систему на собственном опыте и вывели доказательства в открытый доступ.",
+statHarvard: "Мустафо окончил сложнейший курс CS50x: Introduction to Computer Science",
+btnVerHarvard: "Проверить в Harvard ↗",
+statZooniverse: "Официальный вклад в международную научную платформу гражданской науки Zooniverse",
+statHubspot: "Официальная бизнес-сертификация международного уровня по Digital Marketing",
+resultsTitle: "Подобрано специально для тебя ($0):",
+ageInput: "Возраст (например, 14)",
+btnOpen: "Открыть курс →",
+btnVol: "Волонтерить →"
+},
+uz: {
+mainTitle: "Kelajagingizni IT va fanda $0 evaziga yarating",
+subtitle: "Ambitsiyali o'smirlar uchun bepul xalqaro kurslar, xakatolar va ko'ngillilik loyihalari bo'yicha eng yirik navigator.",
+quizTitle: "Sizga mos dasturni topamiz 🚀",
+quizDesc: "Sizni ko'proq nima qiziqtiradi?",
+tagIt: "💻 Kod yozish (IT)",
+tagVol: "🌍 Ko'ngillilik (Fan/Ekologiya)",
+tagMark: "📈 Loyihalarni rivojlantirish (Biznes)",
+searchBtn: "Variantlarni ko'rsatish →",
+aboutTitle: "Nega bu ishlaydi?",
+aboutSubtitle: "Biz ushbu tizimni o'z tajribamizda sinovdan o'tkazdik va rasmiy natijalar bilan bo'lishamiz.",
+statHarvard: "Mustafo CS50x: Introduction to Computer Science kursini muvaffaqiyatli tugatdi",
+btnVerHarvard: "Harvardda tekshirish ↗",
+statZooniverse: "Zooniverse fuqarolik fanining xalqaro ilmiy platformasiga rasmiy ko'ngillilik hissasi",
+statHubspot: "Digital Marketing Certified bo'yicha xalqaro biznes sertifikati",
+resultsTitle: "Maxsus siz uchun tanlangan ($0):",
+ageInput: "Yoshingiz (masalan, 14)",
+btnOpen: "Kursni ochish →",
+btnVol: "Ko'ngilli bo'lish →"
+},
+en: {
+mainTitle: "Build Your Future in IT and Science with a $0 Budget",
+subtitle: "The largest navigator for free international courses, hackathons, and volunteer projects for ambitious teenagers from Uzbekistan.",
+quizTitle: "Let's find the perfect program for you 🚀",
+quizDesc: "What are you most interested in?",
 tagIt: "💻 Writing Code (IT)",
 tagVol: "🌍 Volunteering (Science/Eco)",
 tagMark: "📈 Marketing & Projects (Business)",
@@ -236,7 +417,6 @@ data.forEach(item => {
 const btnText = item.category === 'volunteering'
 ? (currentLang === 'ru' ? "Волонтерить →" : currentLang === 'uz' ? "Ko'ngilli bo'lish →" : "Volunteer Now →")
 : (currentLang === 'ru' ? "Открыть курс →" : currentLang === 'uz' ? "Kursni ochish →" : "Open Course →");
-// Категории в бейджах переводим динамически для красоты
 const badgeTranslation = item.category === 'it'
 ? (currentLang === 'ru' ? "IT / Программирование" : currentLang === 'uz' ? "IT / Dasturlash" : "IT / Coding")
 : item.category === 'volunteering'
