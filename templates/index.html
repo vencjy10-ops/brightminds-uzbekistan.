@@ -5,41 +5,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BrightMinds Uzbekistan</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
-    <!-- Красивое превью для Telegram, WhatsApp и соцсетей -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://onrender.com">
     <meta property="og:title" content="💡 BrightMinds Uzbekistan — Бесплатные возможности">
-    <meta property="og:description" content="Мультиязычная платформа для амбициозных подростков Узбекистана. Поиск бесплатных курсов мирового уровня и проверенного волонтерства со стоимостью $0. Создано Мустафо.">
+    <meta property="og:description" content="Масштабная платформа для амбициозных подростков Узбекистана. Поиск бесплатных курсов и волонтерства.">
     <meta property="og:image" content="https://onrender.com/static/preview.jpg">
 </head>
 <body>
 
-    <!-- Верхняя панель (Переключатель языков) -->
-    <div class="top-bar">
-        <div class="container lang-container">
-            <label for="lang-select" id="lbl-lang">🌐 Тили / Язык / Language:</label>
-            <select id="lang-select" onchange="changeLanguage(this.value)">
-                <option value="ru" selected>Русский</option>
-                <option value="uz">O'zbekcha</option>
-                <option value="en">English</option>
-            </select>
+    <!-- Взрослое навигационное меню (как на Zooniverse) -->
+    <nav class="main-nav">
+        <div class="container nav-box">
+            <div class="nav-logo">💡 BrightMinds <span>Uz</span></div>
+            <ul class="nav-links">
+                <li><a href="#about-title" class="nav-item">О проекте</a></li>
+                <li><a href="#quiz-title" class="nav-item">Поиск программ</a></li>
+                <li><a href="#explore-title" class="nav-item">Направления</a></li>
+            </ul>
+            <div class="lang-switcher">
+                <select id="lang-select" onchange="changeLanguage(this.value)">
+                    <option value="ru" selected>Русский</option>
+                    <option value="uz">O'zbekcha</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
         </div>
-    </div>
+    </nav>
 
-    <!-- Главный экран (Hero) -->
-    <header>
-        <div class="container">
-            <div class="logo">💡 BrightMinds <span>Uzbekistan</span></div>
-            <p class="subtitle" id="hero-subtitle">Международная образовательная платформа для амбициозных подростков</p>
+    <!-- Огромный приветственный баннер (Hero Banner) -->
+    <header class="hero-large">
+        <div class="container hero-content">
+            <h1 id="hero-main-title">Создавай своё будущее в ИТ и науке со стоимостью $0</h1>
+            <p class="subtitle" id="hero-subtitle">Крупнейший навигатор по бесплатным международным курсам, хакатонам и волонтерским проектам для амбициозных подростков из Узбекистана.</p>
+            <a href="#quiz-title" class="btn-hero-action" id="btn-hero-go">Найти программы →</a>
         </div>
     </header>
 
-    <!-- Интерактивный опрос (Onboarding Quiz) -->
-    <section class="onboarding-section">
+    <!-- Блок большой статистики (Масштаб Zooniverse) -->
+    <section class="about-section" id="about-title">
+        <div class="container">
+            <h2 class="section-title text-center" id="about-title-text">Почему это работает?</h2>
+            <p class="section-subtitle text-center" id="about-subtitle">Мы проверили эту систему на собственном опыте и вывели доказательства в открытый доступ.</p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-num">Harvard</div>
+                    <p class="stat-text" id="stat-harvard">Мустафо окончил сложнейший курс <strong>CS50x: Introduction to Computer Science</strong></p>
+                    <a href="https://harvard.edu" target="_blank" class="btn-verify" id="btn-ver-harvard">Проверить в Harvard ↗</a>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num">100+ ч.</div>
+                    <p class="stat-text" id="stat-zooniverse">Официальный вклад в международную научную платформу гражданской науки <strong>Zooniverse</strong></p>
+                    <a href="https://zooniverse.org" target="_blank" class="btn-verify" id="btn-ver-zooniverse">Посмотреть сертификат ↗</a>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num">HubSpot</div>
+                    <p class="stat-text" id="stat-hubspot">Официальная бизнес-сертификация международного уровня по <strong>Digital Marketing</strong></p>
+                    <a href="https://hubspot.com" target="_blank" class="btn-verify" id="btn-ver-hubspot">Проверить в HubSpot ↗</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Интерактивный блок подбора программ -->
+    <section class="onboarding-section" id="quiz-title">
         <div class="container">
             <div class="onboarding-box">
-                <h3 class="step-title" id="quiz-title">Давай найдем программу под тебя 🚀</h3>
+                <h3 class="step-title" id="quiz-title-text">Давай найдем программу под тебя 🚀</h3>
                 <p class="step-desc" id="quiz-desc">Чем ты хочешь заниматься больше всего?</p>
                 
                 <div class="interest-tags">
@@ -56,124 +88,112 @@
         </div>
     </section>
 
-    <!-- Блок доверия и верификации (About & Verification) -->
-    <section class="about-section">
+    <!-- Динамический блок вывода результатов из SQL -->
+    <main class="container hidden" id="results-container">
+        <h2 class="section-title" id="results-title">Подобрано специально для тебя ($0):</h2>
+        <div class="grid" id="opportunities-grid"></div>
+    </main>
+
+    <!-- Новый огромный блок категорий (Масштабность сайта) -->
+    <section class="explore-categories" id="explore-title">
         <div class="container">
-            <h2 class="section-title text-center" id="about-title">Why trust us / Почему нам доверяют</h2>
-            <p class="section-subtitle text-center" id="about-subtitle">Мы проверили эту систему на собственном опыте и делимся официальными результатами.</p>
-            
-            <div class="stats-grid">
-                <!-- Ссылка 1: Гарвард -->
-                <div class="stat-card">
-                    <div class="stat-num">Harvard</div>
-                    <p class="stat-text" id="stat-harvard">Мустафо успешно окончил курс <strong>CS50x: Introduction to Computer Science</strong></p>
-                    <a href="https://harvard.edu" target="_blank" class="btn-verify" id="btn-ver-harvard">Проверить в Harvard ↗</a>
+            <h2 class="section-title text-center" id="exp-title">Доступные направления для развития</h2>
+            <div class="cat-large-grid">
+                <div class="cat-large-card">
+                    <h3>Development & AI</h3>
+                    <p>Изучение веб-разработки, алгоритмов, Python и искусственного интеллекта на курсах Лиги Плюща.</p>
                 </div>
-
-                <!-- Ссылка 2: Волонтерство -->
-                <div class="stat-card">
-                    <div class="stat-num">100 ч.</div>
-                    <p class="stat-text" id="stat-zooniverse">Официальный вклад в международную научную платформу <strong>Zooniverse</strong></p>
-                    <a href="https://zooniverse.org" target="_blank" class="btn-verify" id="btn-ver-zooniverse">Посмотреть сертификат ↗</a>
+                <div class="cat-large-card">
+                    <h3>Citizen Science</h3>
+                    <p>Участие в настоящих исследованиях космоса, океана и природы вместе с учеными со всего мира.</p>
                 </div>
-
-                <!-- Ссылка 3: HubSpot -->
-                <div class="stat-card">
-                    <div class="stat-num">HubSpot</div>
-                    <p class="stat-text" id="stat-hubspot">Официальная бизнес-сертификация по <strong>Digital Marketing Certified</strong></p>
-                    <a href="https://hubspot.com" target="_blank" class="btn-verify" id="btn-ver-hubspot">Проверить в HubSpot ↗</a>
+                <div class="cat-large-card">
+                    <h3>Global Scholarships</h3>
+                    <p>Пошаговые инструкции, как находить гранты и учиться за границей абсолютно бесплатно.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Блок вывода результатов поиска (Каталог) -->
-    <main class="container hidden" id="results-container">
-        <h2 class="section-title" id="results-title">Подобрано специально для тебя ($0):</h2>
-        <div class="grid" id="opportunities-grid">
-            <!-- Сюда JS вставит отфильтрованные карточки -->
-        </div>
-    </main>
-
     <footer>
         <div class="container">
-            <p>© 2026 BrightMinds Uzbekistan. Global Opportunity Hub.</p>
+            <p>© 2026 BrightMinds Uzbekistan. Разработано Мустафо. Проект запущен в сеть 24/7.</p>
         </div>
     </footer>
 
-    <!-- Скрипт мультиязычности и интерактивного поиска -->
     <script>
-        // База данных языковых переводов
         const translations = {
             ru: {
-                subtitle: "Международная образовательная платформа для амбициозных подростков",
+                mainTitle: "Создавай своё будущее в ИТ и науке со стоимостью $0",
+                subtitle: "Крупнейший навигатор по бесплатным международным курсам, хакатонам и волонтерским проектам для амбициозных подростков из Узбекистана.",
                 quizTitle: "Давай найдем программу под тебя 🚀",
                 quizDesc: "Чем ты хочешь заниматься больше всего?",
                 tagIt: "💻 Писать код (IT)",
                 tagVol: "🌍 Волонтерство (Наука/Экология)",
                 tagMark: "📈 Продвигать проекты (Бизнес)",
                 searchBtn: "Показать мои варианты →",
-                aboutTitle: "Почему нам доверяют",
-                aboutSubtitle: "Мы проверили эту систему на собственном опыте и делимся официальными результатами.",
-                statHarvard: "Мустафо успешно окончил курс <strong>CS50x: Introduction to Computer Science</strong>",
+                aboutTitle: "Почему это работает?",
+                aboutSubtitle: "Мы проверили эту систему на собственном опыте и вывели доказательства в открытый доступ.",
+                statHarvard: "Мустафо окончил сложнейший курс <strong>CS50x: Introduction to Computer Science</strong>",
                 btnVerHarvard: "Проверить в Harvard ↗",
-                statZooniverse: "Официальный вклад в международную научную платформу <strong>Zooniverse</strong>",
-                statHubspot: "Официальная бизнес-сертификация по <strong>Digital Marketing Certified</strong>",
+                statZooniverse: "Официальный вклад в международную научную платформу гражданской науки <strong>Zooniverse</strong>",
+                statHubspot: "Официальная бизнес-сертификация международного уровня по <strong>Digital Marketing</strong>",
                 resultsTitle: "Подобрано специально для тебя ($0):",
                 ageInput: "Возраст (например, 14)",
                 btnOpen: "Открыть курс →",
                 btnVol: "Волонтерить →"
             },
             uz: {
-                subtitle: "Ambitsiyali o'smirlar uchun xalqaro ta'lim platformasi",
+                mainTitle: "Kelajagingizni IT va fanda $0 evaziga yarating",
+                subtitle: "Ambitsiyali o'smirlar uchun bepul xalqaro kurslar, xakatolar va ko'ngillilik loyihalari bo'yicha eng yirik navigator.",
                 quizTitle: "Sizga mos dasturni topamiz 🚀",
                 quizDesc: "Sizni ko'proq nima qiziqtiradi?",
                 tagIt: "💻 Kod yozish (IT)",
                 tagVol: "🌍 Ko'ngillilik (Fan/Ekologiya)",
                 tagMark: "📈 Loyihalarni rivojlantirish (Biznes)",
                 searchBtn: "Variantlarni ko'rsatish →",
-                aboutTitle: "Nega bizga ishonishadi",
+                aboutTitle: "Nega bu ishlaydi?",
                 aboutSubtitle: "Biz ushbu tizimni o'z tajribamizda sinovdan o'tkazdik va rasmiy natijalar bilan bo'lishamiz.",
-                statHarvard: "Mustafo <strong>CS50x: Introduction to Computer Science</strong> kursini muvaffaqiyatli tugatdi",
+                statHarvard: "Mustafo <strong>CS50x: Introduction to Computer Science</strong> kursini muvaffакiyatli tugatdi",
                 btnVerHarvard: "Harvardda tekshirish ↗",
-                statZooniverse: "<strong>Zooniverse</strong> xalqaro ilmiy platformasiga rasmiy ko'ngillilik hissasi",
-                statHubspot: "<strong>Digital Marketing Certified</strong> bo'yicha rasmiy biznes sertifikati",
+                statZooniverse: "<strong>Zooniverse</strong> fuqarolik fanining xalqaro ilmiy platformasiga rasmiy ko'ngillilik hissasi",
+                statHubspot: "<strong>Digital Marketing Certified</strong> bo'yicha xalqaro biznes sertifikati",
                 resultsTitle: "Maxsus siz uchun tanlangan ($0):",
                 ageInput: "Yoshingiz (masalan, 14)",
                 btnOpen: "Kursni ochish →",
                 btnVol: "Ko'ngilli bo'lish →"
             },
             en: {
-                subtitle: "International educational platform for ambitious teenagers",
+                mainTitle: "Build Your Future in IT and Science with a $0 Budget",
+                subtitle: "The largest navigator for free international courses, hackathons, and volunteer projects for ambitious teenagers from Uzbekistan.",
                 quizTitle: "Let's find the perfect program for you 🚀",
                 quizDesc: "What are you most interested in?",
-                tagIt: "💻 Writing Code (IT)",
-                tagVol: "🌍 Volunteering (Science/Eco)",
-                tagMark: "📈 Marketing & Projects (Business)",
-                searchBtn: "Show my options →",
-                aboutTitle: "Why trust us",
-                aboutSubtitle: "We tested this system ourselves and share official, verified results.",
-                statHarvard: "Mustafo successfully completed <strong>CS50x: Introduction to Computer Science</strong>",
-                btnVerHarvard: "Verify at Harvard ↗",
-                statZooniverse: "Official contribution to the international citizen science platform <strong>Zooniverse</strong>",
-                statHubspot: "Official business certification in <strong>Digital Marketing Certified</strong>",
-                resultsTitle: "Tailored options for you ($0):",
-                ageInput: "Age (e.g., 14)",
-                btnOpen: "Open Course →",
-                btnVol: "Volunteer Now →"
-            }
-        };
-
-        // Функция смены языка
-        function changeLanguage(lang) {
-            document.getElementById('hero-subtitle').innerHTML = translations[lang].subtitle;
-            document.getElementById('quiz-title').innerText = translations[lang].quizTitle;
-            document.getElementById('quiz-desc').innerText = translations[lang].quizDesc;
-            document.getElementById('tag-it').innerText = translations[lang].tagIt;
-            document.getElementById('tag-vol').innerText = translations[lang].tagVol;
-            document.getElementById('tag-mark').innerText = translations[lang].tagMark;
-            document.getElementById('btn-search-action').innerText = translations[lang].searchBtn;
-            document.getElementById('about-title').innerText = translations[lang].aboutTitle;
+tagIt: "💻 Writing Code (IT)",
+tagVol: "🌍 Volunteering (Science/Eco)",
+tagMark: "📈 Marketing & Projects (Business)",
+searchBtn: "Show my options →",
+aboutTitle: "Why it works?",
+aboutSubtitle: "We tested this system ourselves and share official, verified results.",
+statHarvard: "Mustafo successfully completed CS50x: Introduction to Computer Science",
+btnVerHarvard: "Verify at Harvard ↗",
+statZooniverse: "Official contribution to the international citizen science platform Zooniverse",
+statHubspot: "Official business certification in Digital Marketing Certified",
+resultsTitle: "Tailored options for you ($0):",
+ageInput: "Age (e.g., 14)",
+btnOpen: "Open Course →",
+btnVol: "Volunteer Now →"
+}
+};
+function changeLanguage(lang) {
+document.getElementById('hero-main-title').innerText = translations[lang].mainTitle;
+document.getElementById('hero-subtitle').innerHTML = translations[lang].subtitle;
+document.getElementById('quiz-title-text').innerText = translations[lang].quizTitle;
+document.getElementById('quiz-desc').innerText = translations[lang].quizDesc;
+document.getElementById('tag-it').innerText = translations[lang].tagIt;
+document.getElementById('tag-vol').innerText = translations[lang].tagVol;
+document.getElementById('tag-mark').innerText = translations[lang].tagMark;
+document.getElementById('btn-search-action').innerText = translations[lang].searchBtn;
+document.getElementById('about-title-text').innerText = translations[lang].aboutTitle;
 document.getElementById('about-subtitle').innerText = translations[lang].aboutSubtitle;
 document.getElementById('stat-harvard').innerHTML = translations[lang].statHarvard;
 document.getElementById('btn-ver-harvard').innerText = translations[lang].btnVerHarvard;
@@ -181,20 +201,15 @@ document.getElementById('stat-zooniverse').innerHTML = translations[lang].statZo
 document.getElementById('stat-hubspot').innerHTML = translations[lang].statHubspot;
 document.getElementById('results-title').innerText = translations[lang].resultsTitle;
 document.getElementById('user-age').placeholder = translations[lang].ageInput;
-const btnVerUz = "Tekshirish ↗";
-const btnVerEn = "Verify ↗";
-const btnVerRu = "Проверить ↗";
 document.getElementById('btn-ver-zooniverse').innerText = lang === 'ru' ? "Посмотреть ↗" : lang === 'uz' ? "Ko'rish ↗" : "View Certificate ↗";
-document.getElementById('btn-ver-hubspot').innerText = lang === 'ru' ? btnVerRu : lang === 'uz' ? btnVerUz : btnVerEn;
+document.getElementById('btn-ver-hubspot').innerText = lang === 'ru' ? "Проверить ↗" : lang === 'uz' ? "Tekshirish ↗" : "Verify ↗";
 }
-// Подсветка кнопок интересов при клике
 const tags = document.querySelectorAll('.tag-btn');
 tags.forEach(tag => {
 tag.addEventListener('click', () => {
 tag.classList.toggle('active');
 });
 });
-// Функция интеллектуального вывода карточек из базы SQL через Python
 function runSearch() {
 const resultsBox = document.getElementById('results-container');
 const grid = document.getElementById('opportunities-grid');
@@ -221,14 +236,20 @@ data.forEach(item => {
 const btnText = item.category === 'volunteering'
 ? (currentLang === 'ru' ? "Волонтерить →" : currentLang === 'uz' ? "Ko'ngilli bo'lish →" : "Volunteer Now →")
 : (currentLang === 'ru' ? "Открыть курс →" : currentLang === 'uz' ? "Kursni ochish →" : "Open Course →");
-htmlContent += <div class="card card-${item.category}"> <div class="badge">${item.category.toUpperCase()}</div> <h3>${item.title}</h3> <p class="org">🏛 ${item.organization}</p> <p class="desc">${item.description}</p> <div class="card-footer"> <span class="age">${currentLang === 'ru' ? 'Возраст' : currentLang === 'uz' ? 'Yosh' : 'Age'}: ${item.min_age}+</span> <a href="${item.link}" target="_blank" class="btn-link">${btnText}</a> </div> </div>;
+// Категории в бейджах переводим динамически для красоты
+const badgeTranslation = item.category === 'it'
+? (currentLang === 'ru' ? "IT / Программирование" : currentLang === 'uz' ? "IT / Dasturlash" : "IT / Coding")
+: item.category === 'volunteering'
+? (currentLang === 'ru' ? "Онлайн-Волонтерство" : currentLang === 'uz' ? "Onlayn Ko'ngillilik" : "Online Volunteering")
+: (currentLang === 'ru' ? "Маркетинг / Бизнес" : currentLang === 'uz' ? "Marketing / Biznes" : "Marketing / Business");
+htmlContent += <div class="card card-${item.category}"> <div class="badge">${badgeTranslation}</div> <h3>${item.title}</h3> <p class="org">🏛 ${item.organization}</p> <p class="desc">${item.description}</p> <div class="card-footer"> <span class="age">${currentLang === 'ru' ? 'Возраст' : currentLang === 'uz' ? 'Yosh' : 'Age'}: ${item.min_age}+</span> <a href="${item.link}" target="_blank" class="btn-link">${btnText}</a> </div> </div>;
 });
 }
 grid.innerHTML = htmlContent;
 resultsBox.classList.remove('hidden');
 resultsBox.scrollIntoView({ behavior: 'smooth' });
 })
-.catch(err => console.error("Ошибка SQL базы данных:", err));
+.catch(err => console.error("Ошибка базы данных:", err));
 }
 
 
