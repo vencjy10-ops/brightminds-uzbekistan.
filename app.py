@@ -111,4 +111,4 @@ def search():
 
 if __name__ == '__main__':
     init_db()  # Проверяем и создаем базу данных перед запуском сервера
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=10000, debug=False)
