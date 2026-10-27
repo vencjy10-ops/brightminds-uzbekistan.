@@ -5,13 +5,14 @@ import os
 app = Flask(__name__)
 DB_NAME = 'opportunities.db'
 
-# Функция для инициализации базы данных (вызывается 1 раз при старте)
+# Функция для инициализации базы данных
 def init_db():
+    # Если старая база есть, мы не перезаписываем её. 
+    # Чтобы база обновилась на Render, он сам очистит кэш при сборке.
     if not os.path.exists(DB_NAME):
         conn = sqlite3.connect(DB_NAME)
         cursor = conn.cursor()
         
-        # 1. Создаем таблицу
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS opportunities (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -25,35 +26,18 @@ def init_db():
             )
         ''')
         
-        # 2. Сразу наполняем её твоими достижениями
         sample_data = [
-            (
-                'CS50x: Introduction to Computer Science',
-                'Harvard University',
-                'it',
-                14,
-                'Online',
-                'Легендарный курс по основам программирования. Изучи C, Python, SQL и веб-разработку абсолютно бесплатно и получи официальный сертификат.',
-                'https://harvard.edu'
-            ),
-            (
-                'Citizen Science Projects',
-                'Zooniverse Platform',
-                'volunteering',
-                10,
-                'Online',
-                'Помогай ученым исследовать космос, дикую природу и климат. Набирай реальные часы для резюме в США и получай международные сертификаты.',
-                'https://zooniverse.org'
-            ),
-            (
-                'Digital Marketing Certification',
-                'HubSpot Academy',
-                'marketing',
-                13,
-                'Online',
-                'Освой основы продвижения сайтов, SEO, контент-маркетинг и автоматизацию бизнес-процессов. Бесплатный бизнес-сертификат.',
-                'https://hubspot.com'
-            )
+            # Твои 3 стартовых проекта
+            ('CS50x: Introduction to Computer Science', 'Harvard University', 'it', 14, 'Online', 'Легендарный курс по основам программирования. Изучи C, Python, SQL и веб-разработку абсолютно бесплатно и получи официальный сертификат.', 'https://harvard.edu'),
+            ('Citizen Science Projects', 'Zooniverse Platform', 'volunteering', 10, 'Online', 'Помогай ученым исследовать космос, дикую природу и климат. Набирай реальные часы для резюме в США и получай международные сертификаты.', 'https://zooniverse.org'),
+            ('Digital Marketing Certification', 'HubSpot Academy', 'marketing', 13, 'Online', 'Освой основы продвижения сайтов, SEO, контент-маркетинг и автоматизацию бизнес-процессов. Бесплатный бизнес-сертификат.', 'https://hubspot.com'),
+            
+            # НОВЫЕ ПРОГРАММЫ FULL-RIDE И ВОЛОНТЕРСТВА
+            ('Berea College Full-Ride Грант', 'Berea College (USA)', 'marketing', 17, 'Offline', 'Официальная программа полного финансирования для иностранцев. Покрывает 100% стоимости обучения, проживания в общежитии и шведский стол.', 'https://berea.edu'),
+            ('Онлайн-волонтерство ООН (UNV)', 'United Nations Volunteers', 'volunteering', 15, 'Online', 'Официальная платформа ООН. Помощь международным проектам в дизайне, переводах и ИТ. Выдается престижный сертификат Организации Объединенных Наций.', 'https://unv.org'),
+            ('Международные ИТ-Хакатоны', 'Devpost Platform', 'it', 13, 'Online', 'Глобальная площадка технологических соревнований. Создавай ИТ-проекты в командах, собирай портфолио для США и выигрывай денежные гранты.', 'https://devpost.com'),
+            ('Финансовая помощь Coursera (Financial Aid)', 'Coursera EdTech', 'it', 14, 'Online', 'Пошаговый инструмент получения 100% скидки на профессиональные курсы и сертификаты от Google, IBM, Stanford и Yale University.', 'https://coursera.org'),
+            ('Академический обмен и обучение в США', 'Youth For Understanding (YFU)', 'marketing', 15, 'Offline', 'Программы полной и частичной стипендии на проживание и обучение в американских школах для раскрытия лидерского потенциала.', 'https://yfu.org')
         ]
         
         cursor.executemany('''
@@ -63,7 +47,7 @@ def init_db():
         
         conn.commit()
         conn.close()
-        print("База данных SQL успешно создана и заполнена твоими курсами!")
+        print("База данных SQL успешно обновлена и наполнена новыми Full-Ride программами!")
 
 def get_db_connection():
     conn = sqlite3.connect(DB_NAME)
@@ -110,5 +94,5 @@ def search():
     return jsonify(opportunities)
 
 if __name__ == '__main__':
-    init_db()  # Проверяем и создаем базу данных перед запуском сервера
+    init_db()
     app.run(host='0.0.0.0', port=10000, debug=False)
