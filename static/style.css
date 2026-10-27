@@ -1,0 +1,357 @@
+
+```css
+/* Сброс стилей и шрифты */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+body {
+    background-color: #f8fafc;
+    color: #1e293b;
+}
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Верхняя панель (Языки) */
+.top-bar {
+    background-color: #0f172a;
+    color: #94a3b8;
+    padding: 12px 0;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #334155;
+}
+
+.lang-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+
+.top-bar select {
+    background-color: #1e293b;
+    color: white;
+    border: 1px solid #475569;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* Шапка (Header) */
+header {
+    background: linear-gradient(135deg, #1e3a8a, #0f172a);
+    color: white;
+    padding: 60px 0 80px 0;
+    text-align: center;
+}
+
+.logo {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+    letter-spacing: -1px;
+}
+
+.logo span {
+    color: #38bdf8;
+}
+
+.subtitle {
+    font-size: 1.25rem;
+    color: #93c5fd;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Блок онбординга / Квиза */
+.onboarding-section {
+    margin-top: -40px;
+    margin-bottom: 50px;
+}
+
+.onboarding-box {
+    background-color: white;
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    border: 1px solid #e2e8f0;
+}
+
+.step-title {
+    font-size: 1.7rem;
+    margin-bottom: 8px;
+    color: #0f172a;
+}
+
+.step-desc {
+    color: #64748b;
+    margin-bottom: 25px;
+}
+
+.interest-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.tag-btn {
+    padding: 14px 22px;
+    background-color: #f1f5f9;
+    border: 2px solid #e2e8f0;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: #475569;
+    transition: all 0.2s ease;
+}
+
+.tag-btn:hover {
+    background-color: #e2e8f0;
+    color: #0f172a;
+}
+
+.tag-btn.active {
+    background-color: #e0f2fe;
+    border-color: #0ea5e9;
+    color: #0369a1;
+}
+
+.search-action-box {
+    display: flex;
+    gap: 15px;
+}
+
+.search-action-box input {
+    width: 220px;
+    padding: 14px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 1rem;
+}
+
+.btn-primary-search {
+    flex: 1;
+    padding: 14px 30px;
+    background: linear-gradient(135deg, #0ea5e9, #2563eb);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+    transition: all 0.2s;
+}
+
+.btn-primary-search:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.25);
+}
+
+/* Блок верификации и доверия */
+.about-section {
+    background-color: #ffffff;
+    padding: 60px 0;
+    border-top: 1px solid #e2e8f0;
+    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 50px;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 15px;
+}
+
+.section-subtitle {
+    color: #64748b;
+    max-width: 700px;
+    margin: 0 auto 40px auto;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.stat-card {
+    background-color: #f8fafc;
+    border-radius: 14px;
+    padding: 30px;
+    text-align: center;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stat-num {
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: #2563eb;
+    margin-bottom: 12px;
+}
+
+.stat-text {
+    font-size: 0.95rem;
+    color: #475569;
+    line-height: 1.6;
+}
+
+.btn-verify {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 8px 16px;
+    background-color: #e2e8f0;
+    color: #1e293b;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+}
+
+.btn-verify:hover {
+    background-color: #cbd5e1;
+    color: #0f172a;
+}
+
+.verify-badge {
+    display: inline-block;
+    margin-top: 15px;
+    font-size: 0.85rem;
+    color: #0284c7;
+    background-color: #e0f2fe;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.verify-code {
+    display: inline-block;
+    margin-top: 15px;
+    font-size: 0.8rem;
+    color: #94a3b8;
+    font-family: monospace;
+    background-color: #f1f5f9;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+/* Вывод результатов (Сетка карточек) */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.card {
+    background-color: white;
+    border-radius: 14px;
+    padding: 28px;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03);
+    border: 1px solid #e2e8f0;
+    border-top: 6px solid #cbd5e1;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+}
+
+.card-it { border-top-color: #38bdf8; }
+.card-vol { border-top-color: #f97316; }
+.card-marketing { border-top-color: #10b981; }
+
+.badge {
+    padding: 5px 12px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    border-radius: 20px;
+    margin-bottom: 18px;
+    display: inline-block;
+    align-self: flex-start;
+}
+
+.card-it .badge { background-color: #e0f2fe; color: #0369a1; }
+.card-vol .badge { background-color: #ffedd5; color: #c2410c; }
+.card-marketing .badge { background-color: #d1fae5; color: #065f46; }
+
+.card h3 {
+    font-size: 1.3rem;
+    color: #0f172a;
+    margin-bottom: 8px;
+}
+
+.org {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.desc {
+    font-size: 0.95rem;
+    color: #334155;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+}
+
+.age {
+    font-size: 0.85rem;
+    color: #64748b;
+    font-weight: 600;
+}
+
+.btn-link {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.btn-link:hover {
+    text-decoration: underline;
+}
+
+/* Футер */
+footer {
+    background-color: #0f172a;
+    color: #64748b;
+    text-align: center;
+    padding: 30px 0;
+}
+
+Как это запустить и протестировать:

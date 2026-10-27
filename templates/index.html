@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrightMinds Uzbekistan</title>
+    <!-- Путь к стилям для Flask -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- Верхняя панель (Переключатель языков) -->
+    <div class="top-bar">
+        <div class="container lang-container">
+            <label for="lang-select" id="lbl-lang">🌐 Тили / Язык / Language:</label>
+            <select id="lang-select" onchange="changeLanguage(this.value)">
+                <option value="ru" selected>Русский</option>
+                <option value="uz">O'zbekcha</option>
+                <option value="en">English</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Главный экран (Hero) -->
+    <header>
+        <div class="container">
+            <div class="logo">💡 BrightMinds <span>Uzbekistan</span></div>
+            <p class="subtitle" id="hero-subtitle">Международная образовательная платформа для амбициозных подростков</p>
+        </div>
+    </header>
+
+    <!-- Интерактивный опрос (Onboarding Quiz) -->
+    <section class="onboarding-section">
+        <div class="container">
+            <div class="onboarding-box">
+                <h3 class="step-title" id="quiz-title">Давай найдем программу под тебя 🚀</h3>
+                <p class="step-desc" id="quiz-desc">Чем ты хочешь заниматься больше всего?</p>
+                
+                <div class="interest-tags">
+                    <button class="tag-btn" data-interest="it" id="tag-it">💻 Писать код (IT)</button>
+                    <button class="tag-btn" data-interest="volunteering" id="tag-vol">🌍 Волонтерство (Наука/Экология)</button>
+                    <button class="tag-btn" data-interest="marketing" id="tag-mark">📈 Продвигать проекты (Бизнес)</button>
+                </div>
+
+                <div class="search-action-box">
+                    <input type="number" id="user-age" placeholder="Возраст (например, 14)" min="10" max="20">
+                    <button class="btn-primary-search" id="btn-search-action" onclick="runSearch()">Показать мои варианты →</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Блок доверия и верификации (About & Verification) -->
+    <section class="about-section">
+        <div class="container">
+            <h2 class="section-title text-center" id="about-title">Why trust us / Почему нам доверяют</h2>
+            <p class="section-subtitle text-center" id="about-subtitle">Мы проверили эту систему на собственном опыте и делимся официальными результатами.</p>
+            
+            <div class="stats-grid">
+                <!-- Карточка 1: Гарвард -->
+                <div class="stat-card">
+                    <div class="stat-num">Harvard</div>
+                    <p class="stat-text" id="stat-harvard">Мустафо успешно окончил курс <strong>CS50x: Introduction to Computer Science</strong></p>
+                    <a href="https://harvard.edu" target="_blank" class="btn-verify" id="btn-ver-harvard">Проверить в Harvard ↗</a>
+                </div>
+
+                <!-- Карточка 2: Волонтерство -->
+                <div class="stat-card">
+                    <div class="stat-num">100 ч.</div>
+                    <p class="stat-text" id="stat-zooniverse">Официальный вклад в международную научную платформу <strong>Zooniverse</strong></p>
+                    <a href="https://zooniverse.org" target="_blank" class="btn-verify" id="btn-ver-zooniverse">Посмотреть сертификат ↗</a>
+                </div>
+
+                <!-- Карточка 3: HubSpot -->
+                <div class="stat-card">
+                    <div class="stat-num">HubSpot</div>
+                    <p class="stat-text" id="stat-hubspot">Официальная бизнес-сертификация по <strong>Digital Marketing Certified</strong></p>
+                    <a href="https://hubspot.com" target="_blank" class="btn-verify" id="btn-ver-hubspot">Проверить в HubSpot ↗</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Блок вывода результатов поиска (Каталог) -->
+    <main class="container hidden" id="results-container">
+        <h2 class="section-title" id="results-title">Подобрано специально для тебя ($0):</h2>
+        <div class="grid" id="opportunities-grid">
+            <!-- Сюда JS вставит карточки из базы данных SQL -->
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 BrightMinds Uzbekistan. Global Opportunity Hub.</p>
+        </div>
+    </footer>
+
+    <!-- Логика мультиязычности и AJAX-запроса к SQL через Flask -->
+    <script>
+        // База данных языковых переводов
+        const translations = {
+            ru: {
+                subtitle: "Международная образовательная платформа для амбициозных подростков",
+                quizTitle: "Давай найдем программу под тебя 🚀",
+                quizDesc: "Чем ты хочешь заниматься больше всего?",
+                tagIt: "💻 Писать код (IT)",
+                tagVol: "🌍 Волонтерство (Наука/Экология)",
+                tagMark: "📈 Продвигать проекты (Бизнес)",
+                searchBtn: "Показать мои варианты →",
+                aboutTitle: "Почему нам доверяют",
+                aboutSubtitle: "Мы проверили эту систему на собственном опыте и делимся официальными результатами.",
+                statHarvard: "Мустафо успешно окончил курс <strong>CS50x: Introduction to Computer Science</strong>",
+                btnVerHarvard: "Проверить в Harvard ↗",
+                statZooniverse: "Официальный вклад в международную научную платформу <strong>Zooniverse</strong>",
+                statHubspot: "Официальная бизнес-сертификация по <strong>Digital Marketing Certified</strong>",
+                resultsTitle: "Подобрано специально для тебя ($0):",
+                ageInput: "Возраст (например, 14)"
+            },
+            uz: {
+                subtitle: "Ambitsiyali o'smirlar uchun xalqaro ta'lim platformasi",
+                quizTitle: "Sizga mos dasturni topamiz 🚀",
+                quizDesc: "Sizni ko'proq nima qiziqtiradi?",
+                tagIt: "💻 Kod yozish (IT)",
+                tagVol: "🌍 Ko'ngillilik (Fan/Ekologiya)",
+                tagMark: "📈 Loyihalarni rivojlantirish (Biznes)",
+                searchBtn: "Variantlarni ko'rsatish →",
+                aboutTitle: "Nega bizga ishonishadi",
+                aboutSubtitle: "Biz ushbu tizimni o'z tajribamizda sinovdan o'tkazdik va rasmiy natijalar bilan bo'lishamiz.",
+                statHarvard: "Mustafo <strong>CS50x: Introduction to Computer Science</strong> kursini muvaffaqiyatli tugatdi",
+                btnVerHarvard: "Harvardda tekshirish ↗",
+                statZooniverse: "<strong>Zooniverse</strong> xalqaro ilmiy platformasiga rasmiy ko'ngillilik hissasi",
+                statHubspot: "<strong>Digital Marketing Certified</strong> bo'yicha rasmiy biznes sertifikati",
+                resultsTitle: "Maxsus siz uchun tanlangan ($0):",
+                ageInput: "Yoshingiz (masalan, 14)"
+            },
+            en: {
+                subtitle: "International educational platform for ambitious teenagers",
+                quizTitle: "Let's find the perfect program for you 🚀",
+                quizDesc: "What are you most interested in?",
+                tagIt: "💻 Writing Code (IT)",
+                tagVol: "🌍 Volunteering (Science/Eco)",
+                tagMark: "📈 Marketing & Projects (Business)",
+                searchBtn: "Show my options →",
+                aboutTitle: "Why trust us",
+                aboutSubtitle: "We tested this system ourselves and share official, verified results.",
+                statHarvard: "Mustafo successfully completed <strong>CS50x: Introduction to Computer Science</strong>",
+                btnVerHarvard: "Verify at Harvard ↗",
+                statZooniverse: "Official contribution to the international citizen science platform <strong>Zooniverse</strong>",
+                statHubspot: "Official business certification in <strong>Digital Marketing Certified</strong>",
+                resultsTitle: "Tailored options for you ($0):",
+                ageInput: "Age (e.g., 14)"
+            }
+        };
+
+        // Функция смены языка
+        function changeLanguage(lang) {
+            document.getElementById('hero-subtitle').innerHTML = translations[lang].subtitle;
+            document.getElementById('quiz-title').innerText = translations[lang].quizTitle;
+            document.getElementById('quiz-desc').innerText = translations[lang].quizDesc;
+            document.getElementById('tag-it').innerText = translations[lang].tagIt;
+            document.getElementById('tag-vol').innerText = translations[lang].tagVol;
+            document.getElementById('tag-mark').innerText = translations[lang].tagMark;
+            document.getElementById('btn-search-action').innerText = translations[lang].searchBtn;
+            document.getElementById('about-title').innerText = translations[lang].aboutTitle;
+            document.getElementById('about-subtitle').innerText = translations[lang].aboutSubtitle;
+            document.getElementById('stat-harvard').innerHTML = translations[lang].statHarvard;
+            document.getElementById('btn-ver-harvard').innerText = translations[lang].btnVerHarvard;
+            document.getElementById('stat-zooniverse').innerHTML = translations[lang].statZooniverse;
+            document.getElementById('stat-hubspot').innerHTML = translations[lang].statHubspot;
+            document.getElementById('results-title').innerText = translations[lang].resultsTitle;
+            document.getElementById('user-age').placeholder = translations[lang].ageInput;
+            
+            // Перевод кнопок верификации
+            const btnVerUz = "Tekshirish ↗";
+const btnVerEn = "Verify ↗";
+const btnVerRu = "Проверить ↗";
+document.getElementById('btn-ver-zooniverse').innerText = lang === 'ru' ? "Посмотреть ↗" : lang === 'uz' ? "Ko'rish ↗" : "View Certificate ↗";
+document.getElementById('btn-ver-hubspot').innerText = lang === 'ru' ? btnVerRu : lang === 'uz' ? btnVerUz : btnVerEn;
+}
+// Подсветка кнопок интересов при клике
+const tags = document.querySelectorAll('.tag-btn');
+tags.forEach(tag => {
+tag.addEventListener('click', () => {
+tag.classList.toggle('active');
+});
+});
+// Главная функция поиска из SQL базы данных через Flask
+function runSearch() {
+const resultsBox = document.getElementById('results-container');
+const grid = document.getElementById('opportunities-grid');
+const currentLang = document.getElementById('lang-select').value;
+const ageInput = document.getElementById('user-age').value;
+let activeCategories = [];
+tags.forEach(tag => {
+if(tag.classList.contains('active')) {
+activeCategories.push(tag.getAttribute('data-interest'));
+}
+});
+// Формируем URL параметры
+let url = /api/search?age=${ageInput || 0};
+activeCategories.forEach(cat => {
+url += &categories=${cat};
+});
