@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель Администратора | BrightMinds</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: #f1f5f9; color: #0f172a; padding: 40px 0; }
+        .container { width: 90%; max-width: 1000px; margin: 0 auto; }
+        .header-box { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+        h1 { color: #1e3a8a; font-weight: 800; }
+        .btn-back { padding: 10px 20px; background-color: #64748b; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; }
+        .form-box { background: white; padding: 30px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-bottom: 40px; border: 1px solid #e2e8f0; }
+        h2 { margin-bottom: 20px; font-size: 1.4rem; color: #1e293b; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .full-width { grid-column: 1 / -1; }
+        .form-group { display: flex; flex-direction: column; gap: 8px; }
+        label { font-weight: 600; color: #475569; font-size: 0.95rem; }
+        input, select, textarea { padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1rem; outline: none; }
+        input:focus, select:focus, textarea:focus { border-color: #2563eb; }
+        textarea { height: 100px; resize: vertical; }
+        .btn-submit { padding: 14px; background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2); }
+        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(16, 185, 129, 0.3); }
+        .items-list { background: white; padding: 30px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
+        .table-wrapper { overflow-x: auto; margin-top: 20px; }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th, td { padding: 14px; border-bottom: 1px solid #e2e8f0; font-size: 0.95rem; }
+        th { background-color: #f8fafc; color: #64748b; font-weight: 700; }
+        .badge-cat { padding: 4px 8px; border-radius: 12px; font-size: 0.8rem; font-weight: 700; display: inline-block; }
+        .cat-it { background-color: #e0f2fe; color: #0369a1; }
+        .cat-volunteering { background-color: #ffedd5; color: #c2410c; }
+        .cat-marketing { background-color: #d1fae5; color: #065f46; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-box">
+            <h1>💡 Панель управления БАЗОЙ ДАННЫХ SQL</h1>
+            <a href="/" class="btn-back">← На главный сайт</a>
+        </div>
+
+        <!-- ФОРМА ДОБАВЛЕНИЯ КУРСА В ОДИН КЛИК -->
+        <div class="form-box">
+            <h2>Добавить новую международную программу</h2>
+            <form action="/admin" method="POST" class="form-grid">
+                <div class="form-group">
+                    <label>Название курса / Программы</label>
+                    <input type="text" name="title" required placeholder="Например: Вводный курс по AI от Stanford">
+                </div>
+                <div class="form-group">
+                    <label>Организация / Вуз</label>
+                    <input type="text" name="organization" required placeholder="Например: Stanford University">
+                </div>
+                <div class="form-group">
+                    <label>Категория</label>
+                    <select name="category" required>
+                        <option value="it">💻 Код и IT</option>
+                        <option value="volunteering">🌍 Онлайн-Волонтерство / Наука</option>
+                        <option value="marketing">📈 Бизнес / Маркетинг / Гранты</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Минимальный возраст участника</label>
+                    <input type="number" name="min_age" value="14" min="8" max="25" required>
+                </div>
+                <div class="form-group full-width">
+                    <label>Описание программы (коротко и емко)</label>
+                    <textarea name="description" required placeholder="Опишите, чему научится студент и какие бонусы или сертификаты он получит..."></textarea>
+                </div>
+                <div class="form-group full-width">
+                    <label>Официальная ссылка на программу</label>
+                    <input type="url" name="link" required placeholder="https://example.com">
+                </div>
+                <button type="submit" class="btn-submit full-width">➕ Мгновенно записать в базу SQL</button>
+            </form>
+        </div>
+        <!-- ТАБЛИЦА ВСЕХ ПРОГРАММ В БАЗЕ -->
+        <div class="items-list">
+            <h2>Текущие курсы в вашей SQL базе данных</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Название</th>
+                            <th>Организация</th>
+                            <th>Категория</th>
+                            <th>Возраст</th>
+                            <th>Ссылка</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in items %}
+                        <tr>
+                            <td><strong>{{ item.title }}</strong></td>
+                            <td>{{ item.organization }}</td>
+                            <td><span class="badge-cat cat-{{ item.category }}">{{ item.category.toUpperCase() }}</span></td>
+                            <td>{{ item.min_age }}+</td>
+                            <td><a href="{{ item.link }}" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: 600;">Открыть ↗</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
