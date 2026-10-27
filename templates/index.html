@@ -4,8 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BrightMinds Uzbekistan</title>
-    <!-- Путь к стилям для Flask -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- Красивое превью для Telegram, WhatsApp и соцсетей -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://onrender.com">
+    <meta property="og:title" content="💡 BrightMinds Uzbekistan — Бесплатные возможности">
+    <meta property="og:description" content="Мультиязычная платформа для амбициозных подростков Узбекистана. Поиск бесплатных курсов мирового уровня и проверенного волонтерства со стоимостью $0. Создано Мустафо.">
+    <meta property="og:image" content="https://onrender.com/static/preview.jpg">
 </head>
 <body>
 
@@ -57,21 +63,21 @@
             <p class="section-subtitle text-center" id="about-subtitle">Мы проверили эту систему на собственном опыте и делимся официальными результатами.</p>
             
             <div class="stats-grid">
-                <!-- Карточка 1: Гарвард -->
+                <!-- Ссылка 1: Гарвард -->
                 <div class="stat-card">
                     <div class="stat-num">Harvard</div>
                     <p class="stat-text" id="stat-harvard">Мустафо успешно окончил курс <strong>CS50x: Introduction to Computer Science</strong></p>
                     <a href="https://harvard.edu" target="_blank" class="btn-verify" id="btn-ver-harvard">Проверить в Harvard ↗</a>
                 </div>
 
-                <!-- Карточка 2: Волонтерство -->
+                <!-- Ссылка 2: Волонтерство -->
                 <div class="stat-card">
                     <div class="stat-num">100 ч.</div>
                     <p class="stat-text" id="stat-zooniverse">Официальный вклад в международную научную платформу <strong>Zooniverse</strong></p>
                     <a href="https://zooniverse.org" target="_blank" class="btn-verify" id="btn-ver-zooniverse">Посмотреть сертификат ↗</a>
                 </div>
 
-                <!-- Карточка 3: HubSpot -->
+                <!-- Ссылка 3: HubSpot -->
                 <div class="stat-card">
                     <div class="stat-num">HubSpot</div>
                     <p class="stat-text" id="stat-hubspot">Официальная бизнес-сертификация по <strong>Digital Marketing Certified</strong></p>
@@ -85,7 +91,7 @@
     <main class="container hidden" id="results-container">
         <h2 class="section-title" id="results-title">Подобрано специально для тебя ($0):</h2>
         <div class="grid" id="opportunities-grid">
-            <!-- Сюда JS вставит карточки из базы данных SQL -->
+            <!-- Сюда JS вставит отфильтрованные карточки -->
         </div>
     </main>
 
@@ -95,7 +101,7 @@
         </div>
     </footer>
 
-    <!-- Логика мультиязычности и AJAX-запроса к SQL через Flask -->
+    <!-- Скрипт мультиязычности и интерактивного поиска -->
     <script>
         // База данных языковых переводов
         const translations = {
@@ -114,7 +120,9 @@
                 statZooniverse: "Официальный вклад в международную научную платформу <strong>Zooniverse</strong>",
                 statHubspot: "Официальная бизнес-сертификация по <strong>Digital Marketing Certified</strong>",
                 resultsTitle: "Подобрано специально для тебя ($0):",
-                ageInput: "Возраст (например, 14)"
+                ageInput: "Возраст (например, 14)",
+                btnOpen: "Открыть курс →",
+                btnVol: "Волонтерить →"
             },
             uz: {
                 subtitle: "Ambitsiyali o'smirlar uchun xalqaro ta'lim platformasi",
@@ -131,7 +139,9 @@
                 statZooniverse: "<strong>Zooniverse</strong> xalqaro ilmiy platformasiga rasmiy ko'ngillilik hissasi",
                 statHubspot: "<strong>Digital Marketing Certified</strong> bo'yicha rasmiy biznes sertifikati",
                 resultsTitle: "Maxsus siz uchun tanlangan ($0):",
-                ageInput: "Yoshingiz (masalan, 14)"
+                ageInput: "Yoshingiz (masalan, 14)",
+                btnOpen: "Kursni ochish →",
+                btnVol: "Ko'ngilli bo'lish →"
             },
             en: {
                 subtitle: "International educational platform for ambitious teenagers",
@@ -148,7 +158,9 @@
                 statZooniverse: "Official contribution to the international citizen science platform <strong>Zooniverse</strong>",
                 statHubspot: "Official business certification in <strong>Digital Marketing Certified</strong>",
                 resultsTitle: "Tailored options for you ($0):",
-                ageInput: "Age (e.g., 14)"
+                ageInput: "Age (e.g., 14)",
+                btnOpen: "Open Course →",
+                btnVol: "Volunteer Now →"
             }
         };
 
@@ -162,16 +174,14 @@
             document.getElementById('tag-mark').innerText = translations[lang].tagMark;
             document.getElementById('btn-search-action').innerText = translations[lang].searchBtn;
             document.getElementById('about-title').innerText = translations[lang].aboutTitle;
-            document.getElementById('about-subtitle').innerText = translations[lang].aboutSubtitle;
-            document.getElementById('stat-harvard').innerHTML = translations[lang].statHarvard;
-            document.getElementById('btn-ver-harvard').innerText = translations[lang].btnVerHarvard;
-            document.getElementById('stat-zooniverse').innerHTML = translations[lang].statZooniverse;
-            document.getElementById('stat-hubspot').innerHTML = translations[lang].statHubspot;
-            document.getElementById('results-title').innerText = translations[lang].resultsTitle;
-            document.getElementById('user-age').placeholder = translations[lang].ageInput;
-            
-            // Перевод кнопок верификации
-            const btnVerUz = "Tekshirish ↗";
+document.getElementById('about-subtitle').innerText = translations[lang].aboutSubtitle;
+document.getElementById('stat-harvard').innerHTML = translations[lang].statHarvard;
+document.getElementById('btn-ver-harvard').innerText = translations[lang].btnVerHarvard;
+document.getElementById('stat-zooniverse').innerHTML = translations[lang].statZooniverse;
+document.getElementById('stat-hubspot').innerHTML = translations[lang].statHubspot;
+document.getElementById('results-title').innerText = translations[lang].resultsTitle;
+document.getElementById('user-age').placeholder = translations[lang].ageInput;
+const btnVerUz = "Tekshirish ↗";
 const btnVerEn = "Verify ↗";
 const btnVerRu = "Проверить ↗";
 document.getElementById('btn-ver-zooniverse').innerText = lang === 'ru' ? "Посмотреть ↗" : lang === 'uz' ? "Ko'rish ↗" : "View Certificate ↗";
@@ -184,7 +194,7 @@ tag.addEventListener('click', () => {
 tag.classList.toggle('active');
 });
 });
-// Главная функция поиска из SQL базы данных через Flask
+// Функция интеллектуального вывода карточек из базы SQL через Python
 function runSearch() {
 const resultsBox = document.getElementById('results-container');
 const grid = document.getElementById('opportunities-grid');
@@ -196,8 +206,29 @@ if(tag.classList.contains('active')) {
 activeCategories.push(tag.getAttribute('data-interest'));
 }
 });
-// Формируем URL параметры
 let url = /api/search?age=${ageInput || 0};
 activeCategories.forEach(cat => {
 url += &categories=${cat};
 });
+fetch(url)
+.then(response => response.json())
+.then(data => {
+let htmlContent = '';
+if (data.length === 0) {
+htmlContent = 'Ничего не найдено / Nothing found';
+} else {
+data.forEach(item => {
+const btnText = item.category === 'volunteering'
+? (currentLang === 'ru' ? "Волонтерить →" : currentLang === 'uz' ? "Ko'ngilli bo'lish →" : "Volunteer Now →")
+: (currentLang === 'ru' ? "Открыть курс →" : currentLang === 'uz' ? "Kursni ochish →" : "Open Course →");
+htmlContent += <div class="card card-${item.category}"> <div class="badge">${item.category.toUpperCase()}</div> <h3>${item.title}</h3> <p class="org">🏛 ${item.organization}</p> <p class="desc">${item.description}</p> <div class="card-footer"> <span class="age">${currentLang === 'ru' ? 'Возраст' : currentLang === 'uz' ? 'Yosh' : 'Age'}: ${item.min_age}+</span> <a href="${item.link}" target="_blank" class="btn-link">${btnText}</a> </div> </div>;
+});
+}
+grid.innerHTML = htmlContent;
+resultsBox.classList.remove('hidden');
+resultsBox.scrollIntoView({ behavior: 'smooth' });
+})
+.catch(err => console.error("Ошибка SQL базы данных:", err));
+}
+
+
