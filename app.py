@@ -1,10 +1,10 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 import sqlite3
+import os
 
 app = Flask(__name__)
 
 # Хранилище данных прямо в памяти для стабильности на бесплатном тарифе Render
-# Мы делаем глобальное подключение, чтобы добавленные через форму курсы не стирались сразу
 _INITIALIZED = False
 def get_db_connection():
     conn = sqlite3.connect('opportunities.db')
@@ -120,4 +120,7 @@ def search():
     return jsonify(opportunities)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=10000, debug=False)
+    # Render автоматически передает нужный порт через переменную окружения PORT.
+    # Если её нет, сервер запустится на стандартном порту 5000.
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=False)
