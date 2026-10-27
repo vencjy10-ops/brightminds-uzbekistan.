@@ -94,7 +94,7 @@
                         <tr>
                             <td><strong>{{ item.title }}</strong></td>
                             <td>{{ item.organization }}</td>
-                            <td><span class="badge-cat cat-{{ item.category }}">{{ item.category.toUpperCase() }}</span></td>
+                            <td><span class="badge-cat cat-{{ item.category }}">{{ item.category | upper }}</span></td>
                             <td>{{ item.min_age }}+</td>
                             <td><a href="{{ item.link }}" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: 600;">Открыть ↗</a></td>
                         </tr>
